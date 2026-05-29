@@ -10,27 +10,22 @@ const port = process.env.PORT || 3000
 
 app.use(bodyParser.json())
 
-// Logger
 app.use(logger)
 
-// Ruta pública para comprobar que la API está viva en Render
 app.get('/', (req, res) => {
     res.json({
-        message: 'API de películas funcionando correctamente',
+        message: 'API de peliculas funcionando correctamente',
         endpoints: {
-            login: 'POST /login',
-            peliculas: 'GET /peliculas'
+            login: '/login',
+            peliculas: '/peliculas'
         }
     })
 })
 
-// Login público para obtener token
 app.use('/', authRoutes)
 
-// Proteger rutas de películas con JWT
 app.use(validarToken)
 
-// Rutas protegidas
 app.use('/', router)
 
 app.listen(port, '0.0.0.0', () => {
